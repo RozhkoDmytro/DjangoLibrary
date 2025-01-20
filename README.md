@@ -65,23 +65,39 @@ project_root/
    pip install -r requirements.txt
    ```
 
-4. Apply migrations:
+4. Configure database settings:
+   Create a `local_settings.py` file in the project directory (library\library) and add the following configuration:
+   ```python
+   DATABASE = "simpledbmanager"
+   DATABASES = {
+       "default": {
+           "ENGINE": "django.db.backends.postgresql_psycopg2",
+           "NAME": "postgres",
+           "USER": "postgres",
+           "PASSWORD": "postgres",
+           "HOST": "localhost",
+           "PORT": "5432",
+       }
+   }
+   ```
+
+5. Apply migrations:
    ```bash
    python manage.py migrate
    ```
 
-5. Create a superuser:
+6. Create a superuser:
    ```bash
    python manage.py createsuperuser
    ```
    Follow the prompts to set up an administrator account.
 
-6. Run the development server:
+7. Run the development server:
    ```bash
    python manage.py runserver
    ```
 
-7. Access the application in your browser at `http://127.0.0.1:8000`.
+8. Access the application in your browser at `http://127.0.0.1:8000`.
 
 ## Usage
 
@@ -111,4 +127,3 @@ This project is licensed under the [MIT License](LICENSE).
 ## Acknowledgments
 
 Special thanks to all contributors and developers who made this project possible.
-
