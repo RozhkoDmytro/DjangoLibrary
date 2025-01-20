@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Author</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+
+<body>
+    <form class="form" method="POST">
+        {% csrf_token %}
+        <div class="title">Create Author</div>
+        <div class="subtitle">Enter the details below</div>
+
+        <div class="input-container ic1">
+            <input id="name" name="name" class="input" type="text" placeholder=" " required />
+            <div class="cut"></div>
+            <label for="name" class="placeholder">Name</label>
+        </div>
+
+        <div class="input-container ic2">
+            <input id="surname" name="surname" class="input" type="text" placeholder=" " required />
+            <div class="cut"></div>
+            <label for="surname" class="placeholder">Surname</label>
+        </div>
+
+        <div class="input-container ic2">
+            <input id="patronymic" name="patronymic" class="input" type="text" placeholder=" " required />
+            <div class="cut"></div>
+            <label for="patronymic" class="placeholder">Patronymic</label>
+        </div>
+
+        <button type="submit" class="submit">Create Author</button>
+    </form>
+</body>
+
+</html>

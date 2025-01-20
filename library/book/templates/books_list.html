@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>List of Books</h2>
+
+<div>
+    <a href="{% url 'books_by_user' %}" class="btn-create-author">Books by user</a>
+</div>
+
+<form method="GET" action="{% url 'books_list' %}">
+    <input type="text" name="query" placeholder="Search by book title or author" value="{{ request.GET.query }}">
+    <select name="filter_by">
+        <option value="name" {% if request.GET.filter_by == 'name' %}selected{% endif %}>Filter by Book Title</option>
+        <option value="author" {% if request.GET.filter_by == 'author' %}selected{% endif %}>Filter by Author</option>
+    </select>
+    <button type="submit">Filter</button>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Author(s)</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for book in books %}
+        <tr>
+            <td>{{ book.id }}</td>
+            <td>
+                <a href="{% url 'book_detail' book.id %}">
+                    {{ book.title }}
+                </a>
+            </td>
+            <td>
+                {% for author in book.authors.all %}
+                {{ author.name }} {{ author.surname }}<br>
+                {% endfor %}
+            </td>
+            <td>{{ book.description }}</td>
+        </tr>
+        {% empty %}
+        <tr class="empty-row">
+            <td colspan="4">No books found.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

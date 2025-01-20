@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Books by User</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Filter</button>
+</form>
+
+{% if user.id or books %}
+<h2>Books by User ID {{ user_id }}</h2>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Authors</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for book in books %}
+        <tr>
+            <td>{{ book.id }}</td>
+            <td>{{ book.title}}</td>
+            <td>
+                {% for author in book.authors.all %}
+                {{ author.name }} {{ author.surname }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3">No books found for this user.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>Please enter a User ID to find their books.</p>
+{% endif %}
+
+<a href="{% url 'books_list' %}">Back to Books List</a>
+{% endblock %}
